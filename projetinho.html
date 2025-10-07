@@ -1,0 +1,1437 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SoftTech - Transformando negócios através da tecnologia</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --laranja-500: #f97316;
+            --laranja-600: #ea580c;
+            --laranja-700: #c2410c;
+            --ambar-600: #d97706;
+            --ambar-700: #b45309;
+            --ambar-800: #92400e;
+            --pedra-50: #fafaf9;
+            --pedra-100: #f5f5f4;
+            --pedra-200: #e7e5e4;
+            --pedra-300: #d6d3d1;
+            --pedra-400: #a8a29e;
+            --pedra-500: #78716c;
+            --pedra-600: #57534e;
+            --pedra-700: #44403c;
+            --pedra-800: #292524;
+            --pedra-900: #1c1917;
+            --branco: #ffffff;
+            --preto: #000000;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--pedra-50);
+            color: var(--pedra-800);
+            overflow-x: hidden;
+        }
+
+        /* Utilitários */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .botao {
+            display: inline-block;
+            padding: 12px 24px;
+            border-radius: 12px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+            text-align: center;
+        }
+
+        .botao-primario {
+            background: linear-gradient(to right, var(--laranja-500), var(--laranja-600));
+            color: var(--branco);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        .botao-primario:hover {
+            background: linear-gradient(to right, var(--laranja-600), var(--laranja-700));
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .botao-secundario {
+            background-color: var(--branco);
+            color: var(--laranja-600);
+            border: 2px solid var(--pedra-200);
+        }
+
+        .botao-secundario:hover {
+            background-color: var(--pedra-50);
+            border-color: var(--pedra-300);
+        }
+
+        .secao {
+            padding: 80px 0;
+        }
+
+        .titulo-secao {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(to right, var(--laranja-600), var(--ambar-800));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .subtitulo-secao {
+            font-size: 1.25rem;
+            color: var(--pedra-700);
+            line-height: 1.6;
+            margin-bottom: 2rem;
+        }
+
+        /* Cabeçalho */
+        .cabecalho {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            background-color: var(--branco);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            padding: 16px 0;
+            transition: all 0.3s ease;
+        }
+
+        .cabecalho.rolado {
+            padding: 12px 0;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        .conteudo-cabecalho {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .icone-logo {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(to bottom right, var(--laranja-500), var(--ambar-700));
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        .icone-logo span {
+            color: var(--branco);
+            font-weight: 700;
+            font-size: 1.25rem;
+        }
+
+        .texto-logo h1 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            background: linear-gradient(to right, var(--laranja-600), var(--ambar-800));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .texto-logo p {
+            font-size: 0.75rem;
+            color: var(--pedra-600);
+        }
+
+        /* Menu Lateral */
+        .menu-lateral {
+            position: fixed;
+            left: 0;
+            top: 80px;
+            bottom: 0;
+            width: 80px;
+            background-color: var(--branco);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            z-index: 90;
+            transition: width 0.3s ease;
+            overflow: hidden;
+        }
+
+        .menu-lateral:hover {
+            width: 256px;
+        }
+
+        .itens-menu {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            padding: 24px 0;
+        }
+
+        .item-menu {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 16px 24px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            color: var(--pedra-600);
+            text-decoration: none;
+        }
+
+        .item-menu:hover, .item-menu.ativo {
+            background: linear-gradient(to right, rgba(249, 115, 22, 0.1), transparent);
+            color: var(--laranja-600);
+        }
+
+        .item-menu.ativo::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: linear-gradient(to bottom, var(--laranja-500), var(--ambar-700));
+            border-radius: 0 4px 4px 0;
+        }
+
+        .icone-menu {
+            width: 40px;
+            height: 40px;
+            background-color: var(--pedra-100);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+        }
+
+        .item-menu:hover .icone-menu, .item-menu.ativo .icone-menu {
+            background-color: rgba(249, 115, 22, 0.1);
+        }
+
+        .texto-menu {
+            font-weight: 500;
+            white-space: nowrap;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .menu-lateral:hover .texto-menu {
+            opacity: 1;
+        }
+
+        /* Seção Início */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            background: linear-gradient(to bottom right, var(--pedra-50), rgba(254, 215, 170, 0.3), rgba(253, 230, 138, 0.3));
+            padding: 0 20px;
+            margin-left: 80px;
+        }
+
+        .conteudo-hero {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 48px;
+            align-items: center;
+        }
+
+        .hero-esquerda {
+            max-width: 600px;
+        }
+
+        .logo-hero {
+            margin-bottom: 24px;
+        }
+
+        .icone-logo-hero {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(to bottom right, var(--laranja-500), var(--ambar-700));
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            transition: transform 0.3s ease;
+        }
+
+        .icone-logo-hero:hover {
+            transform: scale(1.1);
+        }
+
+        .icone-logo-hero span {
+            color: var(--branco);
+            font-weight: 700;
+            font-size: 2.25rem;
+        }
+
+        .titulo-hero {
+            font-size: 3.75rem;
+            font-weight: 700;
+            margin-bottom: 24px;
+            background: linear-gradient(to right, var(--laranja-600), var(--ambar-700), var(--ambar-900));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            line-height: 1.1;
+        }
+
+        .descricao-hero {
+            font-size: 1.25rem;
+            color: var(--pedra-700);
+            margin-bottom: 32px;
+            line-height: 1.6;
+        }
+
+        .botoes-hero {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            margin-bottom: 48px;
+        }
+
+        .estatisticas-hero {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        .estatistica {
+            text-align: center;
+        }
+
+        .numero-estatistica {
+            font-size: 2.25rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            background: linear-gradient(to right, var(--laranja-600), var(--ambar-800));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .texto-estatistica {
+            color: var(--pedra-600);
+            font-size: 0.875rem;
+        }
+
+        .hero-direita {
+            position: relative;
+        }
+
+        .imagem-hero {
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            position: relative;
+        }
+
+        .imagem-hero img {
+            width: 100%;
+            height: 600px;
+            object-fit: cover;
+        }
+
+        .imagem-hero::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(194, 65, 12, 0.3), transparent);
+        }
+
+        .decoracao-hero-1 {
+            position: absolute;
+            bottom: -24px;
+            left: -24px;
+            width: 160px;
+            height: 160px;
+            background: linear-gradient(to bottom right, var(--laranja-400), var(--ambar-600));
+            border-radius: 50%;
+            opacity: 0.2;
+            filter: blur(48px);
+        }
+
+        .decoracao-hero-2 {
+            position: absolute;
+            top: -24px;
+            right: -24px;
+            width: 128px;
+            height: 128px;
+            background: linear-gradient(to bottom right, #60a5fa, #2563eb);
+            border-radius: 50%;
+            opacity: 0.2;
+            filter: blur(48px);
+        }
+
+        /* Seção Parceiros */
+        .parceiros {
+            background-color: var(--branco);
+        }
+
+        .cabecalho-parceiros {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 48px;
+            align-items: center;
+            margin-bottom: 64px;
+        }
+
+        .imagem-parceiros {
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+
+        .imagem-parceiros img {
+            width: 100%;
+            height: 320px;
+            object-fit: cover;
+        }
+
+        .imagem-parceiros::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(194, 65, 12, 0.4), transparent);
+        }
+
+        .grade-segmentos {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 32px;
+        }
+
+        .cartao-segmento {
+            background-color: var(--branco);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            border: 1px solid var(--pedra-200);
+            transition: all 0.5s ease;
+        }
+
+        .cartao-segmento:hover {
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            border-color: rgba(249, 115, 22, 0.2);
+            transform: translateY(-8px);
+        }
+
+        .imagem-segmento {
+            position: relative;
+            height: 192px;
+            overflow: hidden;
+        }
+
+        .imagem-segmento img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .cartao-segmento:hover .imagem-segmento img {
+            transform: scale(1.1);
+        }
+
+        .imagem-segmento::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.6), transparent);
+        }
+
+        .icone-segmento {
+            position: absolute;
+            bottom: 16px;
+            left: 16px;
+            width: 56px;
+            height: 56px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        .icone-segmento i {
+            color: var(--branco);
+            font-size: 1.75rem;
+        }
+
+        .conteudo-segmento {
+            padding: 24px;
+        }
+
+        .titulo-segmento {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: var(--pedra-900);
+        }
+
+        .descricao-segmento {
+            color: var(--pedra-600);
+            line-height: 1.6;
+        }
+
+        /* Seção Seja Parceiro */
+        .seja-parceiro {
+            background-color: var(--branco);
+        }
+
+        .conteudo-parceiro {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 48px;
+            align-items: center;
+        }
+
+        .lista-beneficios {
+            margin-bottom: 32px;
+        }
+
+        .item-beneficio {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .check-beneficio {
+            width: 24px;
+            height: 24px;
+            background: linear-gradient(to bottom right, var(--laranja-500), var(--ambar-700));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .check-beneficio span {
+            color: var(--branco);
+            font-size: 0.75rem;
+        }
+
+        .texto-beneficio {
+            color: var(--pedra-700);
+        }
+
+        .imagem-parceiro {
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        }
+
+        .imagem-parceiro img {
+            width: 100%;
+            height: 500px;
+            object-fit: cover;
+        }
+
+        .imagem-parceiro::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(180, 83, 9, 0.4), transparent);
+        }
+
+        /* Seção Trabalhe Conosco */
+        .trabalhe-conosco {
+            background: linear-gradient(to bottom right, var(--pedra-50), rgba(254, 215, 170, 0.3));
+        }
+
+        .conteudo-trabalhe {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 48px;
+            align-items: center;
+        }
+
+        .imagem-trabalhe {
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            order: 2;
+        }
+
+        .imagem-trabalhe img {
+            width: 100%;
+            height: 500px;
+            object-fit: cover;
+        }
+
+        .imagem-trabalhe::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(194, 65, 12, 0.4), transparent);
+        }
+
+        .decoracao-trabalhe-1 {
+            position: absolute;
+            top: -24px;
+            left: -24px;
+            width: 128px;
+            height: 128px;
+            background: linear-gradient(to bottom right, #60a5fa, #2563eb);
+            border-radius: 50%;
+            opacity: 0.2;
+            filter: blur(48px);
+        }
+
+        .decoracao-trabalhe-2 {
+            position: absolute;
+            bottom: -24px;
+            right: -24px;
+            width: 160px;
+            height: 160px;
+            background: linear-gradient(to bottom right, var(--laranja-400), var(--ambar-600));
+            border-radius: 50%;
+            opacity: 0.2;
+            filter: blur(48px);
+        }
+
+        .texto-trabalhe {
+            order: 1;
+        }
+
+        .lista-vantagens {
+            margin-bottom: 32px;
+        }
+
+        .item-vantagem {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .numero-vantagem {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(to bottom right, var(--laranja-500), var(--laranja-600));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        .numero-vantagem span {
+            color: var(--branco);
+            font-weight: 700;
+        }
+
+        .conteudo-vantagem h4 {
+            font-weight: 600;
+            color: var(--pedra-900);
+            margin-bottom: 4px;
+        }
+
+        .conteudo-vantagem p {
+            color: var(--pedra-600);
+            font-size: 0.875rem;
+        }
+
+        /* Rodapé */
+        .rodape {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            color: #e0e0e0;
+            padding: 64px 0;
+            border-top: 1px solid #333;
+        }
+
+        .conteudo-rodape {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 48px;
+            margin-bottom: 48px;
+        }
+
+        .logo-rodape {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .icone-logo-rodape {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, #666 0%, #888 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .icone-logo-rodape span {
+            color: #fff;
+            font-weight: 700;
+            font-size: 1.25rem;
+        }
+
+        .texto-logo-rodape {
+            font-size: 1.875rem;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        .descricao-rodape {
+            color: #b0b0b0;
+            line-height: 1.6;
+            margin-bottom: 24px;
+        }
+
+        .secao-rodape h4 {
+            font-weight: 700;
+            font-size: 1.125rem;
+            margin-bottom: 16px;
+            color: #fff;
+        }
+
+        .links-rodape {
+            list-style: none;
+        }
+
+        .links-rodape li {
+            margin-bottom: 12px;
+        }
+
+        .links-rodape a {
+            color: #b0b0b0;
+            text-decoration: none;
+            transition: color 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .links-rodape a:hover {
+            color: #fff;
+        }
+
+        .links-rodape a::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            background-color: #888;
+            border-radius: 50%;
+        }
+
+        .links-rodape a:hover::before {
+            background-color: #fff;
+        }
+
+        .links-sociais {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .link-social {
+            width: 48px;
+            height: 48px;
+            background-color: #333;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: #b0b0b0;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            border: 1px solid #444;
+        }
+
+        .link-social:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+            background-color: #444;
+            color: #fff;
+            border-color: #555;
+        }
+
+        .info-contato {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .info-contato a {
+            color: #b0b0b0;
+            text-decoration: none;
+            transition: color 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.875rem;
+        }
+
+        .info-contato a:hover {
+            color: #fff;
+        }
+
+        .rodape-inferior {
+            border-top: 1px solid #333;
+            padding-top: 32px;
+            text-align: center;
+        }
+
+        .rodape-inferior p {
+            color: #888;
+            font-size: 0.875rem;
+        }
+
+        /* Modal de Login */
+        .overlay-modal {
+            position: fixed;
+            inset: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(8px);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .overlay-modal.ativo {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal {
+            background-color: var(--branco);
+            border-radius: 20px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            max-width: 448px;
+            width: 100%;
+            padding: 32px;
+            position: relative;
+            transform: translateY(20px);
+            transition: transform 0.3s ease;
+        }
+
+        .overlay-modal.ativo .modal {
+            transform: translateY(0);
+        }
+
+        .fechar-modal {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            color: var(--pedra-400);
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .fechar-modal:hover {
+            color: var(--pedra-600);
+        }
+
+        .cabecalho-modal {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        .logo-modal {
+            width: 64px;
+            height: 64px;
+            background: linear-gradient(to bottom right, var(--laranja-500), var(--ambar-700));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 16px;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo-modal span {
+            color: var(--branco);
+            font-weight: 700;
+            font-size: 1.5rem;
+        }
+
+        .titulo-modal {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--pedra-900);
+            margin-bottom: 8px;
+        }
+
+        .subtitulo-modal {
+            color: var(--pedra-600);
+        }
+
+        .grupo-formulario {
+            margin-bottom: 16px;
+        }
+
+        .rotulo-formulario {
+            display: block;
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--pedra-700);
+            margin-bottom: 8px;
+        }
+
+        .entrada-formulario {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid var(--pedra-300);
+            border-radius: 12px;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .entrada-formulario:focus {
+            border-color: var(--laranja-500);
+            box-shadow: 0 0 0 2px rgba(249, 115, 22, 0.2);
+        }
+
+        .link-formulario {
+            display: block;
+            text-align: center;
+            color: var(--laranja-600);
+            text-decoration: none;
+            font-size: 0.875rem;
+            margin-top: 16px;
+            transition: color 0.3s ease;
+        }
+
+        .link-formulario:hover {
+            color: var(--laranja-700);
+        }
+
+        /* Responsividade */
+        @media (max-width: 1024px) {
+            .conteudo-hero, .cabecalho-parceiros, .conteudo-parceiro, .conteudo-trabalhe {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-direita, .imagem-parceiros, .imagem-parceiro, .imagem-trabalhe {
+                order: -1;
+            }
+
+            .conteudo-rodape {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .titulo-secao {
+                font-size: 2.5rem;
+            }
+
+            .titulo-hero {
+                font-size: 3rem;
+            }
+
+            .estatisticas-hero {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+
+            .grade-segmentos {
+                grid-template-columns: 1fr;
+            }
+
+            .conteudo-rodape {
+                grid-template-columns: 1fr;
+            }
+
+            .menu-lateral {
+                display: none;
+            }
+
+            .hero, main {
+                margin-left: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Cabeçalho -->
+    <header id="cabecalho" class="cabecalho">
+        <div class="container conteudo-cabecalho">
+            <div class="logo">
+                <div class="icone-logo">
+                    <span>ST</span>
+                </div>
+                <div class="texto-logo">
+                    <h1>SoftTech</h1>
+                    <p>Bem-vindo à SoftTech</p>
+                </div>
+            </div>
+            <button id="botao-login" class="botao botao-primario">Faça seu Login</button>
+        </div>
+    </header>
+
+    <!-- Menu Lateral -->
+    <nav class="menu-lateral">
+        <div class="itens-menu">
+            <a href="#inicio" class="item-menu ativo" data-secao="inicio">
+                <div class="icone-menu">
+                    <i class="fas fa-home"></i>
+                </div>
+                <span class="texto-menu">Início</span>
+            </a>
+            <a href="#parceiros" class="item-menu" data-secao="parceiros">
+                <div class="icone-menu">
+                    <i class="fas fa-users"></i>
+                </div>
+                <span class="texto-menu">Nossos Parceiros</span>
+            </a>
+            <a href="#seja-parceiro" class="item-menu" data-secao="seja-parceiro">
+                <div class="icone-menu">
+                    <i class="fas fa-handshake"></i>
+                </div>
+                <span class="texto-menu">Seja um Parceiro</span>
+            </a>
+            <a href="#trabalhe-conosco" class="item-menu" data-secao="trabalhe-conosco">
+                <div class="icone-menu">
+                    <i class="fas fa-briefcase"></i>
+                </div>
+                <span class="texto-menu">Trabalhe Conosco</span>
+            </a>
+        </div>
+    </nav>
+
+    <!-- Conteúdo Principal -->
+    <main>
+        <!-- Seção Início -->
+        <section id="inicio" class="hero secao">
+            <div class="container conteudo-hero">
+                <div class="hero-esquerda">
+                    <div class="logo-hero">
+                        <div class="icone-logo-hero">
+                            <span>ST</span>
+                        </div>
+                    </div>
+                    <h1 class="titulo-hero">Bem-vindo à SoftTech</h1>
+                    <p class="descricao-hero">
+                        Transformando negócios através da tecnologia. Soluções inovadoras para empresas que buscam excelência e resultados extraordinários.
+                    </p>
+                    <div class="botoes-hero">
+                        <a href="#parceiros" class="botao botao-primario">Conheça Nossas Soluções</a>
+                        <a href="#seja-parceiro" class="botao botao-secundario">Seja um Parceiro</a>
+                    </div>
+                    <div class="estatisticas-hero">
+                        <div class="estatistica">
+                            <div class="numero-estatistica">500+</div>
+                            <div class="texto-estatistica">Clientes Atendidos</div>
+                        </div>
+                        <div class="estatistica">
+                            <div class="numero-estatistica">15+</div>
+                            <div class="texto-estatistica">Anos de Experiência</div>
+                        </div>
+                        <div class="estatistica">
+                            <div class="numero-estatistica">98%</div>
+                            <div class="texto-estatistica">Satisfação</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="hero-direita">
+                    <div class="imagem-hero">
+                        <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&q=80" alt="Equipe trabalhando">
+                    </div>
+                    <div class="decoracao-hero-1"></div>
+                    <div class="decoracao-hero-2"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção Nossos Parceiros -->
+        <section id="parceiros" class="parceiros secao">
+            <div class="container">
+                <div class="cabecalho-parceiros">
+                    <div>
+                        <h2 class="titulo-secao">Nossos Parceiros</h2>
+                        <p class="subtitulo-secao">
+                            Atendemos diversos setores do mercado com soluções personalizadas e tecnologia de ponta
+                        </p>
+                    </div>
+                    <div class="imagem-parceiros">
+                        <img src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?w=800&q=80" alt="Parceiros">
+                    </div>
+                </div>
+                <div class="grade-segmentos">
+                    <!-- Comércio -->
+                    <div class="cartao-segmento">
+                        <div class="imagem-segmento">
+                            <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=800&q=80" alt="Comércio">
+                            <div class="icone-segmento" style="background: linear-gradient(to bottom right, var(--laranja-500), var(--laranja-600));">
+                                <i class="fas fa-store"></i>
+                            </div>
+                        </div>
+                        <div class="conteudo-segmento">
+                            <h3 class="titulo-segmento">Comércio</h3>
+                            <p class="descricao-segmento">
+                                Soluções completas para gestão de lojas e pontos de venda, com controle de estoque e vendas.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Varejo -->
+                    <div class="cartao-segmento">
+                        <div class="imagem-segmento">
+                            <img src="https://images.unsplash.com/photo-1556742044-3c52d6e88c62?w=800&q=80" alt="Varejo">
+                            <div class="icone-segmento" style="background: linear-gradient(to bottom right, #2563eb, #1d4ed8);">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                        </div>
+                        <div class="conteudo-segmento">
+                            <h3 class="titulo-segmento">Varejo</h3>
+                            <p class="descricao-segmento">
+                                Sistemas integrados para grandes redes varejistas com análise de dados e inteligência de mercado.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Empresas -->
+                    <div class="cartao-segmento">
+                        <div class="imagem-segmento">
+                            <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&q=80" alt="Empresas">
+                            <div class="icone-segmento" style="background: linear-gradient(to bottom right, var(--ambar-700), var(--ambar-800));">
+                                <i class="fas fa-building"></i>
+                            </div>
+                        </div>
+                        <div class="conteudo-segmento">
+                            <h3 class="titulo-segmento">Empresas</h3>
+                            <p class="descricao-segmento">
+                                Plataformas corporativas robustas para gestão empresarial, ERP e automação de processos.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção Seja um Parceiro -->
+        <section id="seja-parceiro" class="seja-parceiro secao">
+            <div class="container">
+                <div class="conteudo-parceiro">
+                    <div class="texto-parceiro">
+                        <h2 class="titulo-secao">Seja um Parceiro</h2>
+                        <p class="subtitulo-secao">
+                            Junte-se à nossa rede de parceiros e expanda seus negócios com as melhores soluções tecnológicas do mercado.
+                        </p>
+                        <div class="lista-beneficios">
+                            <div class="item-beneficio">
+                                <div class="check-beneficio">
+                                    <span>✓</span>
+                                </div>
+                                <span class="texto-beneficio">Suporte técnico especializado</span>
+                            </div>
+                            <div class="item-beneficio">
+                                <div class="check-beneficio">
+                                    <span>✓</span>
+                                </div>
+                                <span class="texto-beneficio">Treinamentos exclusivos</span>
+                            </div>
+                            <div class="item-beneficio">
+                                <div class="check-beneficio">
+                                    <span>✓</span>
+                                </div>
+                                <span class="texto-beneficio">Comissões atrativas</span>
+                            </div>
+                            <div class="item-beneficio">
+                                <div class="check-beneficio">
+                                    <span>✓</span>
+                                </div>
+                                <span class="texto-beneficio">Material de marketing</span>
+                            </div>
+                            <div class="item-beneficio">
+                                <div class="check-beneficio">
+                                    <span>✓</span>
+                                </div>
+                                <span class="texto-beneficio">Crescimento conjunto</span>
+                            </div>
+                        </div>
+                        <a href="#" class="botao botao-primario">Quero ser Parceiro</a>
+                    </div>
+                    <div class="imagem-parceiro">
+                        <img src="https://images.unsplash.com/photo-1579532582937-16c108930bf6?w=800&q=80" alt="Seja um Parceiro">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção Trabalhe Conosco -->
+        <section id="trabalhe-conosco" class="trabalhe-conosco secao">
+            <div class="container">
+                <div class="conteudo-trabalhe">
+                    <div class="imagem-trabalhe">
+                        <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&q=80" alt="Trabalhe Conosco">
+                        <div class="decoracao-trabalhe-1"></div>
+                        <div class="decoracao-trabalhe-2"></div>
+                    </div>
+                    <div class="texto-trabalhe">
+                        <h2 class="titulo-secao">Trabalhe Conosco</h2>
+                        <p class="subtitulo-secao">
+                            Faça parte de uma equipe inovadora e apaixonada por tecnologia. Venha construir o futuro conosco.
+                        </p>
+                        <div class="lista-vantagens">
+                            <div class="item-vantagem">
+                                <div class="numero-vantagem">
+                                    <span>1</span>
+                                </div>
+                                <div class="conteudo-vantagem">
+                                    <h4>Ambiente Inovador</h4>
+                                    <p>Trabalhe com as tecnologias mais modernas</p>
+                                </div>
+                            </div>
+                            <div class="item-vantagem">
+                                <div class="numero-vantagem">
+                                    <span>2</span>
+                                </div>
+                                <div class="conteudo-vantagem">
+                                    <h4>Crescimento Profissional</h4>
+                                    <p>Plano de carreira estruturado</p>
+                                </div>
+                            </div>
+                            <div class="item-vantagem">
+                                <div class="numero-vantagem">
+                                    <span>3</span>
+                                </div>
+                                <div class="conteudo-vantagem">
+                                    <h4>Benefícios Completos</h4>
+                                    <p>Pacote de benefícios competitivo</p>
+                                </div>
+                            </div>
+                            <div class="item-vantagem">
+                                <div class="numero-vantagem">
+                                    <span>4</span>
+                                </div>
+                                <div class="conteudo-vantagem">
+                                    <h4>Flexibilidade</h4>
+                                    <p>Modelo de trabalho híbrido</p>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="#" class="botao botao-primario">Ver Vagas Abertas</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Rodapé -->
+        <footer id="rodape" class="rodape">
+            <div class="container">
+                <div class="conteudo-rodape">
+                    <div class="sobre-rodape">
+                        <div class="logo-rodape">
+                            <div class="icone-logo-rodape">
+                                <span>ST</span>
+                            </div>
+                            <div class="texto-logo-rodape">SoftTech</div>
+                        </div>
+                        <p class="descricao-rodape">
+                            Transformando negócios através da tecnologia desde 2008. Soluções inovadoras para empresas que buscam excelência.
+                        </p>
+                    </div>
+                    <div class="secao-rodape">
+                        <h4>Links Rápidos</h4>
+                        <ul class="links-rodape">
+                            <li><a href="#inicio">Início</a></li>
+                            <li><a href="#parceiros">Nossos Parceiros</a></li>
+                            <li><a href="#seja-parceiro">Seja um Parceiro</a></li>
+                            <li><a href="#trabalhe-conosco">Trabalhe Conosco</a></li>
+                        </ul>
+                    </div>
+                    <div class="social-rodape">
+                        <h4>Redes Sociais</h4>
+                        <div class="links-sociais">
+                            <a href="#" class="link-social" title="WhatsApp">
+                                <i class="fab fa-whatsapp"></i>
+                            </a>
+                            <a href="#" class="link-social" title="Email">
+                                <i class="fas fa-envelope"></i>
+                            </a>
+                            <a href="#" class="link-social" title="Instagram">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                            <a href="#" class="link-social" title="LinkedIn">
+                                <i class="fab fa-linkedin-in"></i>
+                            </a>
+                            <a href="#" class="link-social" title="Twitter">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                        </div>
+                        <div class="info-contato">
+                            <a href="mailto:contato@softtech.com">
+                                <i class="fas fa-envelope"></i>
+                                contato@softtech.com
+                            </a>
+                            <a href="tel:+5511999999999">
+                                <i class="fas fa-phone"></i>
+                                (11) 99999-9999
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="rodape-inferior">
+                    <p>© 2024 SoftTech. Todos os direitos reservados.</p>
+                </div>
+            </div>
+        </footer>
+    </main>
+
+    <!-- Modal de Login -->
+    <div id="modal-login" class="overlay-modal">
+        <div class="modal">
+            <button id="fechar-modal" class="fechar-modal">&times;</button>
+            <div class="cabecalho-modal">
+                <div class="logo-modal">
+                    <span>ST</span>
+                </div>
+                <h3 class="titulo-modal">Faça seu Login</h3>
+                <p class="subtitulo-modal">Acesse sua conta SoftTech</p>
+            </div>
+            <form id="formulario-login">
+                <div class="grupo-formulario">
+                    <label for="email" class="rotulo-formulario">E-mail</label>
+                    <input type="email" id="email" class="entrada-formulario" placeholder="seu@email.com" required>
+                </div>
+                <div class="grupo-formulario">
+                    <label for="senha" class="rotulo-formulario">Senha</label>
+                    <input type="password" id="senha" class="entrada-formulario" placeholder="••••••••" required>
+                </div>
+                <button type="submit" class="botao botao-primario" style="width: 100%;">Entrar</button>
+                <a href="#" class="link-formulario">Esqueceu sua senha?</a>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Elementos DOM
+        const cabecalho = document.getElementById('cabecalho');
+        const itensMenu = document.querySelectorAll('.item-menu');
+        const botaoLogin = document.getElementById('botao-login');
+        const modalLogin = document.getElementById('modal-login');
+        const fecharModal = document.getElementById('fechar-modal');
+        const formularioLogin = document.getElementById('formulario-login');
+
+        // Função para rolar suavemente para uma seção
+        function rolarParaSecao(idSecao) {
+            const secao = document.getElementById(idSecao);
+            if (secao) {
+                secao.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        // Atualizar menu ativo baseado na rolagem
+        function atualizarMenuAtivo() {
+            const scrollY = window.scrollY;
+            const secoes = ['inicio', 'parceiros', 'seja-parceiro', 'trabalhe-conosco'];
+            
+            // Adicionar classe rolado ao cabeçalho
+            if (scrollY > 50) {
+                cabecalho.classList.add('rolado');
+            } else {
+                cabecalho.classList.remove('rolado');
+            }
+            
+            // Determinar seção ativa
+            let secaoAtiva = 'inicio';
+            
+            for (let i = secoes.length - 1; i >= 0; i--) {
+                const secao = document.getElementById(secoes[i]);
+                if (secao) {
+                    const offsetTop = secao.offsetTop - 100;
+                    if (scrollY >= offsetTop) {
+                        secaoAtiva = secoes[i];
+                        break;
+                    }
+                }
+            }
+            
+            // Atualizar menu ativo
+            itensMenu.forEach(item => {
+                item.classList.remove('ativo');
+                if (item.getAttribute('data-secao') === secaoAtiva) {
+                    item.classList.add('ativo');
+                }
+            });
+        }
+
+        // Event Listeners
+        window.addEventListener('scroll', atualizarMenuAtivo);
+        
+        itensMenu.forEach(item => {
+            item.addEventListener('click', (e) => {
+                e.preventDefault();
+                const idSecao = item.getAttribute('data-secao');
+                rolarParaSecao(idSecao);
+            });
+        });
+        
+        botaoLogin.addEventListener('click', () => {
+            modalLogin.classList.add('ativo');
+        });
+        
+        fecharModal.addEventListener('click', () => {
+            modalLogin.classList.remove('ativo');
+        });
+        
+        modalLogin.addEventListener('click', (e) => {
+            if (e.target === modalLogin) {
+                modalLogin.classList.remove('ativo');
+            }
+        });
+        
+        formularioLogin.addEventListener('submit', (e) => {
+            e.preventDefault();
+            // Aqui você adicionaria a lógica de login
+            alert('Login realizado com sucesso!');
+            modalLogin.classList.remove('ativo');
+        });
+
+        // Inicializar
+        atualizarMenuAtivo();
+    </script>
+</body>
+</html>
