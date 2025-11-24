@@ -1,8 +1,8 @@
 <?php
-// admin/index.php - Painel Administrativo Completo
+
 session_start();
 
-// Verificar se está logado e é admin
+
 if(!isset($_SESSION['logado']) || $_SESSION['logado'] !== true || $_SESSION['usuario_tipo'] !== 'admin') {
     header('Location: ../index.php');
     exit;
@@ -16,7 +16,7 @@ include_once '../classes/Contato.php';
 $database = new Database();
 $db = $database->getConnection();
 
-// Buscar estatísticas
+
 $parceiro = new Parceiro($db);
 $candidato = new Candidato($db);
 $contato = new Contato($db);
